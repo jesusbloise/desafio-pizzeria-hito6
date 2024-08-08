@@ -21,8 +21,8 @@ function App() {
       
         {/* <Routes>
           <Route path="/" element={<Home />} />
-        </Routes>
-        <Footer /> */}
+        </Routes> */}
+        <Footer />
       </div>
     </Router>
   );
