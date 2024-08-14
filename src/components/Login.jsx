@@ -11,17 +11,20 @@ const Login = () => {
 
     // Validaciones
     if (!email || !password) {
-      setMessage= alert('Todos los campos son obligatorios.');
+      setMessage('Todos los campos son obligatorios.');
+      alert(message)
       return;
     }
 
     if (password.length < 6) {
-      setMessage= alert('La contraseña debe tener al menos 6 caracteres.');
+      setMessage('La contraseña debe tener al menos 6 caracteres.');
+      alert(message)
       return;
     }
 
     // Si todas las validaciones pasan
-    setMessage= alert('Inicio de sesión exitoso!');
+    setMessage('Inicio de sesión exitoso!');
+    alert(message)
   };
 
   return (

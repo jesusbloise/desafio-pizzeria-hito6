@@ -1,11 +1,27 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
+// src/main.jsx (o index.jsx, dependiendo de cómo esté configurado tu proyecto)
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom/client'; // Usa `react-dom/client` para React 18+
 import App from './App';
-import './index.css';
+import { CartProvider } from './context/CartContext'; // Ajusta la ruta según sea necesario
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+root.render(
+  <CartProvider>
     <App />
-  </React.StrictMode>
+  </CartProvider>
 );
+
+
+
+// import 'bootstrap/dist/css/bootstrap.min.css';
+// import React from 'react';
+// import ReactDOM from 'react-dom/client';
+// import App from './App';
+// import './index.css';
+
+// ReactDOM.createRoot(document.getElementById('root')).render(
+//   <React.StrictMode>
+//     <App />
+//   </React.StrictMode>
+// );

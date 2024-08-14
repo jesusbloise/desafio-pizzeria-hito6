@@ -12,22 +12,26 @@ const Register = () => {
 
     // Validaciones
     if (!email || !password || !confirmPassword) {
-      setMessage= alert('Todos los campos son obligatorios.');
+      setMessage('Todos los campos son obligatorios.');
+      alert(message)
       return;
     }
 
     if (password.length < 6) {
-      setMessage= alert('La contraseña debe tener al menos 6 caracteres.');
+      setMessage('La contraseña debe tener al menos 6 caracteres.');
+      alert(message)
       return;
     }
 
     if (password !== confirmPassword) {
-      setMessage= alert('La contraseña y la confirmación de la contraseña deben ser iguales.');
+      setMessage('La contraseña y la confirmación de la contraseña deben ser iguales.');
+      alert(message)
       return;
     }
 
     // Si todas las validaciones pasan
-    setMessage= alert('Registro exitoso!');
+    setMessage('Registro exitoso!');
+    alert(message)
   };
 
   return (

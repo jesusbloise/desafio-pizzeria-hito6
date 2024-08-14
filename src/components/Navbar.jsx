@@ -1,9 +1,11 @@
-import React from "react";
-import { Navbar, Nav, Button, Container } from "react-bootstrap";
+import React from 'react';
+import { Navbar, Nav, Button, Container } from 'react-bootstrap';
+import { useCart } from '../context/CartContext';
+import CartModal from './CartModal';
 
 const MyNavbar = () => {
-  const total = 25000;
-  const token = false;
+  const { getTotal } = useCart();
+  const [showCart, setShowCart] = React.useState(false);
 
   const formatTotal = (amount) => {
     return amount.toLocaleString("es-CL", { style: "currency", currency: "CLP" });
@@ -17,21 +19,11 @@ const MyNavbar = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="#home">🍕 Home</Nav.Link>
-            {token ? (
-              <>
-                <Nav.Link href="#profile">🔓 Profile</Nav.Link>
-                <Nav.Link href="#logout">🔒 Logout</Nav.Link>
-              </>
-            ) : (
-              <>
-                <Nav.Link href="#login">🔐 Login</Nav.Link>
-                <Nav.Link href="#register">🔐 Register</Nav.Link>
-              </>
-            )}
           </Nav>
-          <Button variant="primary" style={{ marginLeft: "auto" }}>
-            🛒 Total: {formatTotal(total)}
+          <Button variant="primary" style={{ marginLeft: "auto" }} onClick={() => setShowCart(true)}>
+            🛒 Total: {formatTotal(getTotal())}
           </Button>
+          <CartModal show={showCart} handleClose={() => setShowCart(false)} />
         </Navbar.Collapse>
       </Container>
     </Navbar>
@@ -39,3 +31,4 @@ const MyNavbar = () => {
 };
 
 export default MyNavbar;
+
