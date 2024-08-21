@@ -1,10 +1,13 @@
 
 
-//hito 4
+//hito 4 logrando consumir APIs desde el backend
 import React, { useState, useEffect } from "react";
+import { useCart } from "../context/CartContext"; // Asegúrate de ajustar la ruta según sea necesario
 
 const Home = () => {
   const [pizzas, setPizzas] = useState([]);
+  const { addToCart } = useCart(); // Obtener la función addToCart del contexto
+
 
   useEffect(() => {
     fetch("http://localhost:5000/api/pizzas")
@@ -60,7 +63,7 @@ const Home = () => {
               cursor: "pointer",
               margin: "10px 5px",
             }}
-            onClick={() => ("Añadido al carrito")}  // Aquí puedes agregar la funcionalidad del carrito
+            onClick={() => addToCart(pizza)}  // Aquí puedes agregar la funcionalidad del carrito
           >
             Añadir al carrito
           </button>

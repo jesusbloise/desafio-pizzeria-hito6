@@ -1,11 +1,10 @@
-// Muestra las pizzas agregadas al carrito, permite ajustar cantidades y muestra el total.
+//este componente es el que maneja el carrito de Compras.
 import React from 'react';
-import { Modal, Button, ListGroup, Image } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 import { useCart } from '../context/CartContext';
-import { useBootstrapMinBreakpoint } from 'react-bootstrap/esm/ThemeProvider'
 
 const CartModal = ({ show, handleClose }) => {
-  const { cartItems, getTotal, addToCart, removeFromCart } = useCart();
+  const { cartItems, addToCart, removeFromCart, total, clearCart } = useCart();
 
   const formatTotal = (amount) => {
     return amount.toLocaleString("es-CL", { style: "currency", currency: "CLP" });
@@ -14,37 +13,45 @@ const CartModal = ({ show, handleClose }) => {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Tu Carrito de Compras</Modal.Title>
+        <Modal.Title>Carrito de Compras</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {cartItems.length === 0 ? (
-          <p>Tu carrito está vacío</p>
-        ) : (
-          <ListGroup variant="flush">
-            {cartItems.map((item) => (
-              <ListGroup.Item key={item.id} className="d-flex justify-content-between align-items-center">
-                <div className="d-flex align-items-center">
-                  <Image src={item.img} alt={item.name} width={50} height={50} className="mr-3" />
-                  <div>
-                    <h5>{item.name}</h5>
-                    <p>{formatTotal(item.price)} x {item.quantity}</p>
-                  </div>
-                </div>
+        {cartItems.length > 0 ? (
+          <>
+            {cartItems.map(item => (
+              <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <img src={item.img} alt={item.name} style={{ width: '50px', height: '50px' }} />
+                <span>{item.name}</span>
                 <div>
                   <Button variant="secondary" size="sm" onClick={() => removeFromCart(item.id)}>-</Button>
+                  <span style={{ margin: '0 10px' }}>{item.quantity}</span>
                   <Button variant="secondary" size="sm" onClick={() => addToCart(item)}>+</Button>
                 </div>
-              </ListGroup.Item>
+                <span>{formatTotal(item.price * item.quantity)}</span>
+              </div>
             ))}
-          </ListGroup>
+            <hr />
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <strong>Total:</strong>
+              <span>{formatTotal(total)}</span>
+            </div>
+          </>
+        ) : (
+          <p>Tu carrito está vacío</p>
         )}
       </Modal.Body>
       <Modal.Footer>
-        <h5>Total: {formatTotal(getTotal())}</h5>
-        <Button variant="primary" onClick={handleClose}>Cerrar</Button>
+        <Button variant="danger" onClick={clearCart}>
+          Vaciar Carrito
+        </Button>
+        <Button variant="secondary" onClick={handleClose}>
+          Cerrar
+        </Button>
+        <Button variant="primary">Pagar</Button>
       </Modal.Footer>
     </Modal>
   );
 };
 
 export default CartModal;
+

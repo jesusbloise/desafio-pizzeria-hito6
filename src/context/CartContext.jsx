@@ -1,6 +1,5 @@
-// Administra las funciones de agregar, quitar, y calcular el total del carrito.
-
-import React, { createContext, useContext, useState } from 'react';
+// CartContext.js es un componente que nos ayuda a que funcione el carrito de compra
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const CartContext = createContext();
 
@@ -9,7 +8,21 @@ export const useCart = () => {
 };
 
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(() => {
+    const storedCartItems = localStorage.getItem('cartItems');
+    return storedCartItems ? JSON.parse(storedCartItems) : [];
+  });
+  const [total, setTotal] = useState(() => {
+    const storedTotal = localStorage.getItem('total');
+    return storedTotal ? JSON.parse(storedTotal) : 0;
+  });
+
+  useEffect(() => {
+    const newTotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    setTotal(newTotal);
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    localStorage.setItem('total', JSON.stringify(newTotal));
+  }, [cartItems]);
 
   const addToCart = (pizza) => {
     setCartItems((prevItems) => {
@@ -37,12 +50,15 @@ export const CartProvider = ({ children }) => {
     );
   };
 
-  const getTotal = () => {
-    return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  const clearCart = () => {
+    setCartItems([]);
+    setTotal(0);
+    localStorage.removeItem('cartItems');
+    localStorage.removeItem('total');
   };
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, getTotal }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, total, clearCart }}>
       {children}
     </CartContext.Provider>
   );
