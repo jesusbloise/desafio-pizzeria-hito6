@@ -9,19 +9,21 @@ export const useCart = () => {
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState(() => {
-    const storedCartItems = localStorage.getItem('cartItems');
-    return storedCartItems ? JSON.parse(storedCartItems) : [];
-  });
-  const [total, setTotal] = useState(() => {
-    const storedTotal = localStorage.getItem('total');
-    return storedTotal ? JSON.parse(storedTotal) : 0;
+    const savedCart = localStorage.getItem('cartItems');
+    return savedCart ? JSON.parse(savedCart) : [];
   });
 
+  const [total, setTotal] = useState(() => {
+    const savedTotal = localStorage.getItem('cartTotal');
+    return savedTotal ? JSON.parse(savedTotal) : 0;
+  });
+
+  // Update total whenever cartItems change
   useEffect(() => {
     const newTotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
     setTotal(newTotal);
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
-    localStorage.setItem('total', JSON.stringify(newTotal));
+    localStorage.setItem('cartTotal', JSON.stringify(newTotal));
   }, [cartItems]);
 
   const addToCart = (pizza) => {
@@ -38,7 +40,7 @@ export const CartProvider = ({ children }) => {
   };
 
   const removeFromCart = (pizzaId) => {
-    setCartItems((prevItems) => 
+    setCartItems((prevItems) =>
       prevItems.reduce((acc, item) => {
         if (item.id === pizzaId) {
           if (item.quantity === 1) return acc;
@@ -54,13 +56,14 @@ export const CartProvider = ({ children }) => {
     setCartItems([]);
     setTotal(0);
     localStorage.removeItem('cartItems');
-    localStorage.removeItem('total');
+    localStorage.removeItem('cartTotal');
   };
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, total, clearCart }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart, total }}>
       {children}
     </CartContext.Provider>
   );
 };
+
 
