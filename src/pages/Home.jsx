@@ -47,7 +47,7 @@ const Home = () => {
               cursor: "pointer",
               margin: "10px 5px",
             }}
-            onClick={() => alert(pizza.desc)}  // Puedes cambiar esto para mostrar la descripción completa
+            onClick={() => alert(pizza.desc)}  
           >
             Ver más
           </button>
