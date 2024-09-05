@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import pizzaCart from '../data/pizzas'; // Asegúrate de ajustar la ruta según tu estructura de archivos
+import pizzaCart from '../data/pizzas';
 import { Card, Button, ListGroup, ListGroupItem } from 'react-bootstrap';
 
 const Cart = () => {

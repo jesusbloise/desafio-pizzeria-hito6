@@ -1,3 +1,5 @@
+//controllers/pizza.controller.js
+
 import { pizzaModel } from "../models/pizza.model.js";
 
 const readPizzas = async (req, res) => {
