@@ -1,10 +1,8 @@
-/* Header.css */
-
 .header-container {
-    background-image: url('../assets/pexels-fariphotography-905847.jpg'); /* Ruta de la imagen de fondo */
+    background-image: url('../assets/pexels-fariphotography-905847.jpg'); 
     background-size: cover;
     background-position: center;
-    height: 300px; /* Altura deseada del header */
+    height: 300px; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,7 +12,7 @@
   }
   
   .header-content {
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semi-transparente */
+    background-color: rgba(0, 0, 0, 0.5);
     padding: 100px;
     border-radius: 10px;
   }

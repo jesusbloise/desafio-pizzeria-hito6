@@ -1,7 +1,5 @@
-// Header.jsx
-
 import React from 'react';
-import './Header.css'; // Archivo CSS para los estilos personalizados
+import './Header.css'; 
 
 const Header = () => {
   return (

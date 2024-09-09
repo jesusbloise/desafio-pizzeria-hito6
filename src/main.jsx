@@ -1,8 +1,7 @@
-// src/main.jsx (o index.jsx, dependiendo de cómo esté configurado tu proyecto)
 import React from 'react';
-import ReactDOM from 'react-dom/client'; // Usa `react-dom/client` para React 18+
+import ReactDOM from 'react-dom/client'; 
 import App from './App';
-import { CartProvider } from './context/CartContext'; // Ajusta la ruta según sea necesario
+import { CartProvider } from './context/CartContext'; 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

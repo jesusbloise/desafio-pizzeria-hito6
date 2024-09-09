@@ -10,7 +10,6 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validaciones
     if (!email || !password || !confirmPassword) {
       setMessage('Todos los campos son obligatorios.');
       alert(message)
@@ -29,7 +28,6 @@ const Register = () => {
       return;
     }
 
-    // Si todas las validaciones pasan
     setMessage('Registro exitoso!');
     alert(message)
   };

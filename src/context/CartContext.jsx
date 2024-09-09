@@ -1,4 +1,3 @@
-// CartContext.js es un componente que nos ayuda a que funcione el carrito de compra
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const CartContext = createContext();
@@ -18,7 +17,6 @@ export const CartProvider = ({ children }) => {
     return savedTotal ? JSON.parse(savedTotal) : 0;
   });
 
-  // Update total whenever cartItems change
   useEffect(() => {
     const newTotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
     setTotal(newTotal);

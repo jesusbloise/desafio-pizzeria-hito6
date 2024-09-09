@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from 'react';
 import { Navbar, Nav, Button, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -11,12 +9,11 @@ const MyNavbar = () => {
   const [showCart, setShowCart] = useState(false);
   const [formattedTotal, setFormattedTotal] = useState();
 
-  // Función para formatear el total
+
   const formatTotal = (amount) => {
     return amount.toLocaleString("es-CL", { style: "currency", currency: "CLP" });
   };
 
-  // Actualizar el estado del total formateado cada vez que `total` cambie
   useEffect(() => {
     setFormattedTotal(formatTotal(total));
   }, [total]);

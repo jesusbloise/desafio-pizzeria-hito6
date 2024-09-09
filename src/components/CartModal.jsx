@@ -1,4 +1,3 @@
-//este componente es el que maneja el carrito de Compras.
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useCart } from '../context/CartContext';
