@@ -9,7 +9,7 @@ const Pizza = () => {
   const { addToCart } = useCart(); 
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/pizzas/${id}`)
+    fetch(`http://localhost:5001/api/pizzas/${id}`)
       .then((response) => response.json())
       .then((data) => setPizza(data))
       .catch((error) => console.error("Error fetching pizza:", error));

@@ -8,7 +8,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/pizzas")
+    fetch("http://localhost:5001/api/pizzas")
       .then((response) => response.json())
       .then((data) => setPizzas(data))
       .catch((error) => console.error("Error fetching pizzas:", error));
