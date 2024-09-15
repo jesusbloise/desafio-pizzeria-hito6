@@ -1,59 +1,34 @@
-import React, { useState } from 'react';
-import pizzaCart from '../data/pizzas';
-import { Card, Button, ListGroup, ListGroupItem } from 'react-bootstrap';
+// src/pages/Cart.jsx
+import React from 'react';
+import { useCart } from '../context/CartContext';
+import { useUser } from '../context/UserContext'; // Importa el hook del contexto de usuario
 
 const Cart = () => {
-  const [cart, setCart] = useState(pizzaCart);
-
-  const increaseQuantity = (id) => {
-    setCart(cart.map(pizza =>
-      pizza.id === id ? { ...pizza, quantity: pizza.quantity + 1 } : pizza
-    ));
-  };
-
-  const decreaseQuantity = (id) => {
-    setCart(cart.map(pizza =>
-      pizza.id === id ? { ...pizza, quantity: pizza.quantity - 1 } : pizza
-    ).filter(pizza => pizza.quantity > 0));
-  };
-
-  const total = cart.reduce((acc, pizza) => acc + pizza.price * pizza.quantity, 0);
+  const { items, total } = useCart();
+  const { token } = useUser(); // Accedemos al token
 
   return (
-    <div className="cart">
+    <div className="cart-page">
       <h2>Tu Carrito</h2>
-      {cart.length === 0 ? (
-        <p>Tu carrito está vacío.</p>
-      ) : (
-        <ListGroup>
-          {cart.map(pizza => (
-            <ListGroupItem key={pizza.id}>
-              <Card style={{ margin: '10px' }}>
-                <Card.Img variant="top" src={pizza.img} />
-                <Card.Body>
-                  <Card.Title>{pizza.name}</Card.Title>
-                  <Card.Text>
-                    <strong>Precio:</strong> ${pizza.price.toLocaleString()}
-                  </Card.Text>
-                  <Card.Text>
-                    <strong>Cantidad:</strong> {pizza.quantity}
-                  </Card.Text>
-                  <div className="d-flex justify-content-between">
-                    <Button variant="danger" onClick={() => decreaseQuantity(pizza.id)}>-</Button>
-                    <Button variant="success" onClick={() => increaseQuantity(pizza.id)}>+</Button>
-                  </div>
-                </Card.Body>
-              </Card>
-            </ListGroupItem>
-          ))}
-        </ListGroup>
-      )}
-      <h3>Total: ${total.toLocaleString()}</h3>
-      <Button variant="primary" disabled={cart.length === 0}>
+      {/* Listado de productos */}
+      {items.map((item) => (
+        <div key={item.id}>
+          <p>{item.name}</p>
+          <p>{item.price}</p>
+        </div>
+      ))}
+      
+      <h3>Total: {total}</h3>
+
+      {/* Deshabilitar el botón si no hay token */}
+      <button disabled={!token} className="btn btn-primary">
         Pagar
-      </Button>
+      </button>
+
+      {!token && <p>Inicia sesión para continuar con el pago.</p>}
     </div>
   );
 };
 
 export default Cart;
+
